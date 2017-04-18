@@ -218,6 +218,8 @@ final class MyJSONParser implements JSONParser {
                         else {
                             i++;
                         }
+                        if (numberOfBrackets < 0)
+                            throw new IOException("JSON not found: Too many end brackets");
                     }
                 }
                 // if the end of a value isn't found, then the json is misformatted
