@@ -15,40 +15,51 @@
 package com.google.codeu.codingchallenge;
 
 import java.util.Collection;
+import java.util.HashMap;
 
 final class MyJSON implements JSON {
-
+  // map holding all memory found from the json-lite
+  private HashMap<String, Object> json = new HashMap<>();
+  
   @Override
   public JSON getObject(String name) {
-    // TODO: implement this
+    Object obj = json.get(name);
+    if(obj instanceof JSON)
+      return (JSON) obj;
     return null;
   }
 
   @Override
   public JSON setObject(String name, JSON value) {
-    // TODO: implement this
+    json.put(name, value);
     return this;
   }
-
+  
   @Override
   public String getString(String name) {
-    // TODO: implement this
+    Object obj = json.get(name);
+    if(obj instanceof String)
+      return (String) obj;
     return null;
   }
 
   @Override
   public JSON setString(String name, String value) {
-    // TODO: implement this
+    json.put(name, value);
     return this;
   }
-
+  
   @Override
   public void getObjects(Collection<String> names) {
-    // TODO: implement this
+    for (String name : json.keySet())
+      if (json.get(name) instanceof JSON)
+        names.add(name);
   }
 
   @Override
   public void getStrings(Collection<String> names) {
-    // TODO: implement this
+    for (String name : json.keySet())
+      if (json.get(name) instanceof String)
+        names.add(name);
   }
 }
